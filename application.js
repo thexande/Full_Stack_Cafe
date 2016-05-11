@@ -138,10 +138,8 @@ function userChoiceMenu(){
       var orderedItems = userInput.split(" ");
       // loop through order array, check if index exists in menu object
       for(i = 0; i < orderedItems.length; i++){
-        // console.log(menu[orderedItems[i]]);
         // loop through menu object for each order index
         for(var key in menuObject){
-          // console.log(orderedItems[i])
           if(menuObject.hasOwnProperty(key)){
             // does the index exist in our menuObject object?
             if(parseInt(orderedItems[i]) === menuObject[key].index){
