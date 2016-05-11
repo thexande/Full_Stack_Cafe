@@ -110,17 +110,14 @@ function autoMenu(){
   billProcess(customerBill);
   process.exit();
 }
-
 // calculate menu items based on user input
 function userChoiceMenu(){
   // clear terminal
   process.stdout.write('\033c');
   // show our food menu
   console.log("Your ancestors are proud of your decision to choose your own food. Please choose from the items below.\n\n+-------+----------------------------+----------+\r\n| Index |         Food Item          |  Price   |\r\n+-------+----------------------------+----------+\r\n|     0 | Apple                      | $1.00    |\r\n|     1 | Pulled Pork Sandwich       | $14.95   |\r\n|     2 | Pizza                      | $10.99   |\r\n|     3 | Gyro                       | $7.89    |\r\n|     4 | White Truffle Cheese Steak | $1099.99 |\r\n|     5 | Mummified Pork            | $990.99   |\r\n+-------+----------------------------+----------+\nPlease select food options you would like to order. Ordering multiple items can be done by submitting a list of integers seperated by spaces, for example: 1 3 5 (hit enter at the end)\n")
-
   // close menu if there is one open
   if(menu) menu.close();
-
   // start our readline instance
   menu = readline.createInterface({
     input: process.stdin,
