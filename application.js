@@ -4,6 +4,8 @@ Homework stretch : add 7.1 % sales tax, and make program verbose ( tells you whi
 // declare dependencies
 var readline = require('readline'), menu;
 var teaCup = "\r\n                             (\r\n                               )     (\r\n                        ___...(-------)-....___\r\n                    .-\"\"       )    (          \"\"-.\r\n              .-'``'|-._             )         _.-|\r\n             /  .--.|   `\"\"---...........---\"\"`   |\r\n            /  /    |                             |\r\n            |  |    |                             |\r\n             \\  \\   |                             |\r\n              `\\ `\\ |                             |\r\n                `\\ `|                             |\r\n                _/ /\\                             /\r\n               (__/  \\                           /\r\n            _..---\"\"` \\                         /`\"\"---.._\r\n         .-'           \\                       /          '-.\r\n        :               `-.__             __.-'              :\r\n        :                  ) \"\"---...---\"\" (                 :\r\n         '._               `\"--...___...--\"`              _.'\r\n           \\\"\"--..__                              __..--\"\"/\r\n            '._     \"\"\"----.....______.....----\"\"\"     _.'\r\n               `\"\"--..,,_____            _____,,..--\"\"`\r\n                             `\"\"\"----\"\"\"`\r\n";
+var plate = "                           ___          /|\r\n              ||||     .-\"`   `\"-.     } |  __\r\n         |||| ||||   .'  .-'`'-.  '.   } | /  \\\r\n         |||| \\  /  /  .'       '.  \\  } | ;();\r\n         \\  /  ||  /  ;           ;  \\  \\| \\  /\r\n          ||   ||  | ;             ; |  ||  ||\r\n          %%   %%  | ;             ; |  %%  %%\r\n          %%   %%  \\  ;           ;  /  %%  %%\r\n          %%   %%   \\  '.       .'  /   %%  %%\r\n          %%   %%    '.  `-.,.-'  .'    %%  %%\r\n          %%   %%      '-.,___,.-'      %%  %%\r\n";
+var getToTheChoppa = "                     ______\r\n                   <((((((\\\\\\\r\n                   /      . }\\\r\n                   ;--..--._|}\r\n(\\                 '--/\\--'  )\r\n \\\\                | '-'  :'|\r\n  \\\\               . -==- .-|\r\n   \\\\               \\.__.'   \\--._\r\n   [\\\\          __.--|       //  _/'--.\r\n   \\ \\\\       .'-._ ('-----'/ __/      \\\r\n    \\ \\\\     /   __>|      | '--.       |\r\n     \\ \\\\   |   \\   |     /    /       /\r\n      \\ '\\ /     \\  |     |  _/       /\r\n       \\  \\       \\ |     | /        /\r\n        \\  \\      \\        /";
 // instanciate menu object
 var menuObject = {
   'Apple' : {
@@ -52,6 +54,7 @@ function parentMenu(){
     switch(input){
       case '1': autoMenu(); break;
       case '2': userChoiceMenu(); break;
+      default: parentMenu(); break;
     }
   });
 }
@@ -64,19 +67,19 @@ function billProcess(bill){
       if(menuObject.hasOwnProperty(key)){
         if(menuObject[key].index === bill[i]){
           // add cost to total bill amount
-          billTotal += parseInt(menuObject[key].price);
+          billTotal += menuObject[key].price;
         }
       }
     }
   }
   // calc totals
-  var gratuity = parseInt(0.2 * billTotal).toFixed(2);
-  var tax = parseInt(.071 * billTotal).toFixed(2);
+  var gratuity = parseInt(0.2 * billTotal);
+  var tax = parseInt(.071 * billTotal);
   var grandTotal = parseInt(billTotal) + parseInt(gratuity) + parseInt(tax);
   console.log("Your bill total before 7.1% tax and 20% gratuity is: $" + billTotal.toFixed(2) + "\n")
-  console.log("Gratuity: $" + parseInt(gratuity).toFixed(2) + "\n")
-  console.log("Taxes: $" + parseInt(tax).toFixed(2) + "\n")
-  console.log("Grand Total: $" + parseInt(grandTotal).toFixed(2) + "\n")
+  console.log("Gratuity: $" + gratuity.toFixed(2) + "\n")
+  console.log("Taxes: $" + tax.toFixed(2) + "\n")
+  console.log("Grand Total: $" + grandTotal.toFixed(2) + "\n")
   console.log("Thanks for you business! Come again soon!");
 }
 // object length function
@@ -89,7 +92,9 @@ Object.size = function(obj) {
 };
 // calculate menu items automatically
 function autoMenu(){
-  console.log("You have allowed a computer to choose your meal for you. It is unlikely you will survive Judgement day!\n");
+  process.stdout.write('\033c');
+  console.log("You have allowed a computer to choose your meal for you.\n It is unlikely you will survive Judgement day!\n");
+  console.log(getToTheChoppa);
   var customerBill = [];
   // find 2 random menu items
   for (var i = 0; i <= 1; i++) {
@@ -127,6 +132,7 @@ function userChoiceMenu(){
   var customerBill = [];
   // handle our food order
   menu.question('Galvanize Cafe Prompt > ', function(userInput){
+    console.log("ORDER UP!!!!\n" + plate)
     console.log("Your order has been taken to the kitchen!\nDo we have your order correct?\n")
       // split our string into an array of strings
       var orderedItems = userInput.split(" ");
